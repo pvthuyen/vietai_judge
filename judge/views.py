@@ -12,16 +12,16 @@ import subprocess
 def evaluate_submission(submitted_file, judge_file):
     result = None
     try:
-        result = subprocess.run('python3 {} {}'.format(judge_file, submitted_file), shell=True, timeout=2.5, check=True, stdout=subprocess.PIPE)
+        result = subprocess.run('python3 {} {}'.format(judge_file, submitted_file), shell=True, timeout=10, check=True, stdout=subprocess.PIPE)
     except Exception as e:
-        return 0
-    result_lines = result.stdout.split('\n', 1)
+        return 0, str(e)
+    print(result.stdout.decode("utf-8") )
+    result_lines = result.stdout.decode("utf-8") .split('\n', 1)
     return int(result_lines[0]), result_lines[1]
 
 @csrf_exempt
 @require_http_methods(['POST'])
 def upload_file(request, assignment_id):
-    print(request.body)
     assignment = get_object_or_404(Assignment, id=assignment_id)
     submission = Submission.objects.create(uploaded_file=request.FILES['file'], assignment=assignment)
     score, message = evaluate_submission(settings.MEDIA_ROOT + submission.uploaded_file.name, settings.MEDIA_ROOT + assignment.judge_file.name)
