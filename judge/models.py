@@ -11,3 +11,4 @@ class Submission(models.Model):
     uploaded_file = models.FileField(upload_to='submissions/')
     assignment = models.ForeignKey(Assignment, db_index=True, null=True, related_name='submissions', on_delete=models.CASCADE)
     score = models.PositiveSmallIntegerField('score', default=0)
+    name = models.CharField(max_length=30, blank=True, null=True)
