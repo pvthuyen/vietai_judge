@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'vietai_judge.middleware.LogIPMiddleware'
 ]
 
 ROOT_URLCONF = 'vietai_judge.urls'
