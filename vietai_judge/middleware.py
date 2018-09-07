@@ -20,7 +20,7 @@ class LogIPMiddleware(object):
         response = self.get_response(request)
         return response
 
-    def get_client_ip(request):
+    def get_client_ip(self, request):
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
             ip = x_forwarded_for.split(',')[0]
