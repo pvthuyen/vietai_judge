@@ -20,7 +20,15 @@ class LogIPMiddleware(object):
         response = self.get_response(request)
         return response
 
+    def get_client_ip(request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
+
     def process_request(self, request):
-        client_ip = request.META['REMOTE_ADDR']
+        client_ip = self.get_client_ip(request)
         msg = '[Audit] IP: %s' % (client_ip)
         print(msg)
