@@ -18,7 +18,7 @@ def evaluate_submission(submitted_file, judge_file):
         result = subprocess.run('python3 {} {}'.format(judge_file, submitted_file), shell=True, timeout=10, check=True, stdout=subprocess.PIPE)
     except Exception as e:
         return 0, str(e)
-    result_lines = result.stdout.decode("utf-8") .split('\n', 1)
+    result_lines = result.stdout.decode("utf-8").split('\n', 1)
     return int(result_lines[0]), result_lines[1]
 
 @csrf_exempt
@@ -35,7 +35,7 @@ def upload_file(request, assignment_id):
             return JsonResponse({ 'score': 0, 'message': 'ipynb is in wrong format' })    
         for cell in data['cells']:
             if cell['cell_type'] == 'code'\
-                and cell['source'][0].startswith('# GRADED FUNCTION:'):
+                and cell['source'][0].startswith('# GRADED FUNCTION'):
                 sources.extend(cell['source'])
         
         sources_string = '\n'.join(sources)
