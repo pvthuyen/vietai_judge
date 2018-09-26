@@ -15,7 +15,7 @@ import json
 def evaluate_submission(submitted_file, judge_file):
     result = None
     try:
-        result = subprocess.run('python3 {} {}'.format(judge_file, submitted_file), shell=True, timeout=10, check=True, stdout=subprocess.PIPE)
+        result = subprocess.run('python3 {} {}'.format(judge_file, submitted_file), shell=True, timeout=20, check=True, stdout=subprocess.PIPE)
     except Exception as e:
         return 0, str(e)
     result_lines = result.stdout.decode("utf-8").split('\n', 1)
