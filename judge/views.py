@@ -35,6 +35,7 @@ def upload_file(request, assignment_id):
             return JsonResponse({ 'score': 0, 'message': 'ipynb is in wrong format' })    
         for cell in data['cells']:
             if cell['cell_type'] == 'code'\
+                and len(cell['source']) > 0\
                 and cell['source'][0].startswith('# GRADED FUNCTION'):
                 sources.extend(cell['source'])
         
