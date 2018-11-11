@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-{% load crispy_forms_tags %}
+{% load uni_form_tags %}
 <html>
   <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,7 +33,7 @@
           <h2>Log in</h2>
           <form method="post" action="{{ app_path }}">
             {% csrf_token %}
-            {{ form|crispy }}
+            {{ form|as_uni_form }}
             <button type="submit" class="btn btn-default">Login</button>
             <a href="/password_reset" class="btn btn-default">Forgot password?</a>
           </form>

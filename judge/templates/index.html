@@ -13,7 +13,7 @@
     <script src="{% static 'js/index.js' %}"></script>
     <script>
       $( document ).ready(function() {
-        renderHomework();
+        # renderHomework();
       });
     </script>
   </head>
@@ -41,6 +41,9 @@
         <div class="col-md-3">
           <ul class="list-group" id="vietai-ex-name">
             <!-- Data here -->
+            {% for assignment in assignments %}
+              <li class="list-group-item vietai-cell">{{ assignment.name }}</li>
+            {% endfor %}
           </ul>
         </div>
 
@@ -48,6 +51,22 @@
         <div class="col-md-5">
           <ul class="list-group" id="vietai-homework-submit">
             <!-- Data here -->
+            {% for assignment in assignments %}
+              <li class="list-group-item vietai-cell vietai-overflow">
+                <form>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-9 vietai-overflow">
+                        <input type="file" class="form-control-file" id={{ assignment.id }}>
+                      </div>
+                      <div class="col-md-3">
+                        <button type="button" class="btn btn-info" onClick=submitExercises({{assignment.id}}) >Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </li>
+            {% endfor %}
           </ul>
         </div>
 

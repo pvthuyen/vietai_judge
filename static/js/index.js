@@ -60,30 +60,49 @@ function submitLogin() {
 
 function uploadFile(e){
   var file = e.target.result;
-   if (file && file.length) {
-       /********** UPLOAD_API ********
-         Input:
-           - user_name
-           - exercisesID
-           - file_content (string)
-         Output:
-           - success    true/false
-           - status     "None"(if haven't submitted)/ Score/ "Runtime Error"
-       *******************************/
-       data = {
-         user: user_name,
-         ex_name: exercisesID,
-         file_content: file
-       };
-       $.post(UPLOAD_API, data, function(result){
-         if (result["success"] == true){
-           $("#status_" + exercisesID).html(result["status"]);
-         } else {
-           alert("Login Error! Please contact Teaching Team!")
-         }
-       }).fail(function(response) {
-         alert("Server issue! Please contact Teaching Team")
-       });
+    if (file && file.length) {
+      var form = new FormData();
+      form.append("file", file);
+
+      var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8000/judge/1/upload_file/",
+        "method": "POST",
+        "processData": false,
+        "contentType": false,
+        "mimeType": "multipart/form-data",
+        "data": form
+      }
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+      });
+      // var formData = new FormData();
+      // formData.append('file', file);
+      // $.ajax({
+      //   url: `/judge/${exercisesID}/upload_file/`,
+      //   data: formData,
+      //   processData: false,
+      //   contentType: false,
+      //   type: 'POST',
+      //   success: function(data){
+      //     if (result["success"] == true){
+      //       $("#status_" + exercisesID).html(result["status"]);
+      //     } else {
+      //       alert("Login Error! Please contact Teaching Team!")
+      //     }
+      //   }
+      // });
+      // $.post(`/judge/${exercisesID}/upload_file/`, formData, function(result){
+      //   if (result["success"] == true){
+      //     $("#status_" + exercisesID).html(result["status"]);
+      //   } else {
+      //     alert("Login Error! Please contact Teaching Team!")
+      //   }
+      // }).fail(function(response) {
+      //   alert("Server issue! Please contact Teaching Team")
+      // });
 
        // Test data
        // $("#status_" + exercisesID).html("Runtime Error");
@@ -133,8 +152,10 @@ function submitExercises(exID) {
     alert('Please select a file!');
     return;
   }
+
   var file = files[0];
-  if (file.type.localeCompare("text/plain")!==0) {
+  
+  if (!file.type.includes("text")) {
     alert('Please upload a text file!');
     return;
   }
