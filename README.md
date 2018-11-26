@@ -12,7 +12,7 @@ It's best if you setup everything under a virtual envinronment so that it does n
 - Create a new database for the project:
 ```
 CREATE DATABASE vietai_judge;
-CREATE USER vietai WITH PASSWORD 'vietai';
+CREATE USER vietai WITH PASSWORD '******';
 ALTER ROLE vietai SET client_encoding TO 'utf8';
 ALTER ROLE vietai SET default_transaction_isolation TO 'read committed';
 ALTER ROLE vietai SET timezone TO 'UTC';
