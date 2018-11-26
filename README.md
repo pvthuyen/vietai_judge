@@ -13,6 +13,7 @@ It's best if you setup everything under a virtual envinronment so that it does n
 ```
 CREATE DATABASE vietai_judge;
 CREATE USER vietai WITH PASSWORD '******';
+# remember to update your database credentials here: https://github.com/pvthuyen/vietai_judge/blob/0818b61c51935f60987b75852b90c575958dd840/vietai_judge/settings.py#L78
 ALTER ROLE vietai SET client_encoding TO 'utf8';
 ALTER ROLE vietai SET default_transaction_isolation TO 'read committed';
 ALTER ROLE vietai SET timezone TO 'UTC';
